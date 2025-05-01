@@ -15,7 +15,6 @@ function preload() {
 function setup() {
   createCanvas(400, 600);
   imageMode(CENTER);
-  textAlign(CENTER);
 }
 
 function draw() {
