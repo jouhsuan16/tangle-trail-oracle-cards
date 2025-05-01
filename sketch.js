@@ -14,7 +14,7 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(460, 680); // 完整卡片比例尺寸
+  canvas = createCanvas(420, 660); // 完整卡片比例尺寸
   noSmooth();
   noLoop();
 }
