@@ -3,6 +3,7 @@ let cardImages = [];
 let cardBack;
 let currentCard = null;
 let totalCards = 30;
+let canvas;
 
 function preload() {
   cardBack = loadImage('card-back.jpg');
@@ -13,37 +14,32 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(400, 600);
-  imageMode(CENTER);
-  textAlign(CENTER);
+  canvas = createCanvas(420, 660); // 完整卡片比例尺寸
+  noSmooth();
+  noLoop();
 }
 
 function draw() {
-  background(255);
+  clear();
   if (currentCard) {
-    displayImageFit(currentCard);
+    image(currentCard, 0, 0, width, height);
   } else {
-    displayImageFit(cardBack);
+    image(cardBack, 0, 0, width, height);
   }
 }
 
 function mousePressed() {
-  currentCard = random(cardImages);
-}
-
-function displayImageFit(img) {
-  let aspectCanvas = width / height;
-  let aspectImage = img.width / img.height;
-
-  let displayW, displayH;
-
-  if (aspectImage > aspectCanvas) {
-    displayW = width * 0.9;
-    displayH = displayW / aspectImage;
-  } else {
-    displayH = height * 0.75;
-    displayW = displayH * aspectImage;
+  if (!currentCard) {
+    currentCard = random(cardImages);
+    redraw();
+    const index = cardImages.indexOf(currentCard);
+    parent.postMessage({ cardIndex: index }, "*");
   }
-
-  image(img, width / 2, height / 2, displayW, displayH);
 }
+
+window.addEventListener("message", function(event) {
+  if (event.data === "reset") {
+    currentCard = null;
+    redraw();
+  }
+});
