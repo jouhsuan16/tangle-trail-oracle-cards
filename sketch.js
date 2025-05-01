@@ -25,7 +25,7 @@ function draw() {
     displayImageFit(currentCard);
     fill(0);
     textSize(16);
-    text("Turn to the matching page in your oracle book.", width / 2, height - 40);
+    
   } else {
     displayImageFit(cardBack);
     fill(0);
