@@ -20,17 +20,10 @@ function setup() {
 
 function draw() {
   background(255);
-
   if (currentCard) {
     displayImageFit(currentCard);
-    fill(0);
-    textSize(16);
-    
   } else {
     displayImageFit(cardBack);
-    fill(0);
-    textSize(18);
-    text("Click to draw your card", width / 2, height - 40);
   }
 }
 
@@ -38,7 +31,6 @@ function mousePressed() {
   currentCard = random(cardImages);
 }
 
-// 自動縮放圖片以完整顯示
 function displayImageFit(img) {
   let aspectCanvas = width / height;
   let aspectImage = img.width / img.height;
@@ -53,5 +45,5 @@ function displayImageFit(img) {
     displayW = displayH * aspectImage;
   }
 
-  image(img, width / 2, height / 2 - 20, displayW, displayH);
+  image(img, width / 2, height / 2, displayW, displayH);
 }
