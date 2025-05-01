@@ -1,24 +1,54 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Oracle</title>
+    <meta charset="utf-8" />
+    <title>Oracle Draw + Book</title>
     <style>
-      html, body {
+      body {
         margin: 0;
         padding: 0;
         background: #ffffff;
-        width: 400px;
-        height: 600px;
-        overflow: hidden;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
-      canvas {
-        display: block;
+      .container {
+        display: flex;
+        gap: 24px;
+        margin-top: 20px;
+      }
+      iframe {
+        border: none;
+      }
+      button {
+        margin-top: 12px;
+        padding: 8px 20px;
+        font-size: 16px;
+        background: #111;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #333;
       }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
-    <script src="sketch.js"></script>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <iframe id="drawFrame" src="draw.html" width="400" height="600"></iframe>
+      <iframe id="bookFrame" src="book.html" width="600" height="800"></iframe>
+    </div>
+    <button onclick="resetDraw()">重新抽卡</button>
+
+    <script>
+      function resetDraw() {
+        const frame = document.getElementById("drawFrame");
+        frame.contentWindow.location.reload();
+      }
+    </script>
+  </body>
 </html>
