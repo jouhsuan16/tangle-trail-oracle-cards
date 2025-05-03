@@ -51,15 +51,15 @@
   transform: translateX(-50%);
 }
 
+
+
   </style>
 </head>
 <body>
 
-   <div id="card-container">
+  <div id="card-container">
     <img id="card" src="card-back.jpg" alt="card" />
-    <button id="reset-btn">reset</button>
   </div>
-
 
   <div id="book-container">
     <img id="book" src="guidebook/page-1.jpg" alt="book" />
