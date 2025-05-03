@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Oracle Card + Guidebook</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      gap: 40px;
+      background: #fff;
+      font-family: sans-serif;
+    }
+
+    #card-container, #book-container {
+      width: 400px;
+      height: 600px;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #card {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    #book {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    #reset-btn {
+      position: absolute;
+      bottom: 30px;
+      left: 50px;
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="card-container">
+    <img id="card" src="card-back.jpg" alt="card" />
+  </div>
+
+  <div id="book-container">
+    <img id="book" src="guidebook/page-1.jpg" alt="book" />
+  </div>
+
+  <button id="reset-btn">reset</button>
+
+  <script>
+    const cardImg = document.getElementById("card");
+    const bookImg = document.getElementById("book");
+    const resetBtn = document.getElementById("reset-btn");
+
+    // 卡號對應頁碼表
+    const cardToPage = {
+      "card-01": 6,  "card-02": 12, "card-03": 24, "card-04": 18, "card-05": 30,
+      "card-06": 27, "card-07": 25, "card-08": 26, "card-09": 29, "card-10": 28,
+      "card-11": 10, "card-12": 9,  "card-13": 8,  "card-14": 11, "card-15": 7,
+      "card-16": 22, "card-17": 19, "card-18": 20, "card-19": 23, "card-20": 21,
+      "card-21": 16, "card-22": 13, "card-23": 14, "card-24": 17, "card-25": 15,
+      "card-26": 34, "card-27": 31, "card-28": 32, "card-29": 35, "card-30": 33
+    };
+
+    // 抽卡
+    function drawCard() {
+      const num = Math.floor(Math.random() * 30) + 1;
+      const id = "card-" + String(num).padStart(2, "0");
+      cardImg.src = id + ".jpg";
+
+      const pageNum = cardToPage[id];
+      bookImg.src = "guidebook/page-" + pageNum + ".jpg";
+    }
+
+    document.body.addEventListener("click", (e) => {
+      if (e.target.id !== "reset-btn") drawCard();
+    });
+
+    resetBtn.addEventListener("click", () => {
+      cardImg.src = "card-back.jpg";
+      bookImg.src = "guidebook/page-1.jpg";
+    });
+  </script>
+
+</body>
+</html>
