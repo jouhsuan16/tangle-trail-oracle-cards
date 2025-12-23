@@ -2,21 +2,23 @@
 <html>
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Oracle Card + Guidebook</title>
 
   <style>
-    /* 桌機版：左右並排，貼齊上方 */
     body {
       margin: 0;
       padding: 20px;
       display: flex;
       gap: 40px;
-      align-items: flex-start;      /* 貼齊上方 */
-      justify-content: center;      /* 水平置中 */
+      align-items: flex-start;
+      justify-content: center;
       background: #fff;
       font-family: sans-serif;
+      box-sizing: border-box;
     }
 
+    /* 兩個容器共同設定 */
     #card-container,
     #book-container {
       width: 400px;
@@ -27,6 +29,13 @@
       justify-content: center;
       overflow: hidden;
       position: relative;
+      box-sizing: border-box;
+      background: transparent;
+    }
+
+    /* 卡片容器：底部預留空間給 reset（不遮卡片內容） */
+    #card-container {
+      padding-bottom: 60px; /* 關鍵：預留按鈕區 */
     }
 
     #card {
@@ -34,6 +43,7 @@
       max-height: 100%;
       cursor: pointer;
       transition: box-shadow 0.3s ease;
+      display: block;
     }
 
     #card:hover {
@@ -43,9 +53,10 @@
     #book {
       max-width: 100%;
       max-height: 100%;
+      display: block;
     }
 
-    /* reset 按鈕：以卡片容器為定位基準 */
+    /* reset 固定在卡片容器底部中央（不浮在卡片上） */
     #reset-btn {
       background-color: black;
       color: white;
@@ -56,38 +67,43 @@
       cursor: pointer;
 
       position: absolute;
-      bottom: 25px;
+      bottom: 16px;
       left: 50%;
       transform: translateX(-50%);
     }
 
-    /* 手機版：寬度 < 768px 時改成直排，減少空白 */
+    /* 手機版：直排 + 放大內容 + 減少留白 */
     @media (max-width: 768px) {
-  /* 讓卡片區變成直排：卡片在上、reset 在下 */
-  #card-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 10px;
-  }
+      body {
+        padding: 16px;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+      }
 
-  /* 手機版 reset 不要用 absolute，改成正常排版 */
-  #reset-btn {
-    position: static;
-    transform: none;
-    width: fit-content;
-    margin: 0 auto;
-  }
-}
+      #card-container,
+      #book-container {
+        width: 100%;
+        max-width: 360px;
+        height: auto;         /* 讓圖片決定高度 */
+      }
+
+      /* 手機版依然保留底部空間給 reset */
+      #card-container {
+        padding-bottom: 56px;
+      }
 
       #card,
       #book {
         width: 100%;
         height: auto;
+        max-width: 100%;
+        max-height: none;
       }
 
       #reset-btn {
         bottom: 12px;
+        font-size: 14px;
       }
     }
   </style>
@@ -97,7 +113,7 @@
 
   <div id="card-container">
     <img id="card" src="card-back.jpg" alt="card" />
-    <button id="reset-btn">reset</button>
+    <button id="reset-btn" type="button">reset</button>
   </div>
 
   <div id="book-container">
@@ -136,7 +152,8 @@
       if (e.target.id !== "reset-btn") drawCard();
     });
 
-    resetBtn.addEventListener("click", () => {
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // 避免 reset 點擊又觸發抽卡
       cardImg.src = "card-back.jpg";
       bookImg.src = "guidebook/page-1.jpg";
     });
@@ -144,4 +161,3 @@
 
 </body>
 </html>
-
