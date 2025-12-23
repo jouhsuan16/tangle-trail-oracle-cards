@@ -63,19 +63,22 @@
 
     /* 手機版：寬度 < 768px 時改成直排，減少空白 */
     @media (max-width: 768px) {
-      body {
-        padding: 16px;
-        flex-direction: column;   /* 改為直向排列 */
-        gap: 16px;
-        align-items: center;      /* 整體置中 */
-      }
+  /* 讓卡片區變成直排：卡片在上、reset 在下 */
+  #card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+  }
 
-      #card-container,
-      #book-container {
-        width: 100%;
-        max-width: 360px;         /* 適合手機的最大寬度 */
-        height: auto;             /* 高度由內容決定 */
-      }
+  /* 手機版 reset 不要用 absolute，改成正常排版 */
+  #reset-btn {
+    position: static;
+    transform: none;
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
 
       #card,
       #book {
